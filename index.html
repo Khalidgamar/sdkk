@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+    <script>
+        (function(e,t,n,o){e.PeopleEventsObject=o;e[o]=e[o]||{init:function(t){e[o].apiKey=t},
+        setPerson:function(t,n){e[o].person=t;e[o].personTtl=n},
+        forgetPerson:function(){e[o].toForgetPerson=true},
+        track:function(){(e[o].q=e[o].q||[]).push(arguments)},
+        updatePerson:function(t){e[o].personToUpdate={person:t}},
+        appendToList:function(t,n){e[o].attributeToAppend={attributeName:t,attribute:n}}};
+        var r=t.createElement("script");
+        var s=t.getElementsByTagName("script")[0];r.async=1;r.src=n;s.parentNode.insertBefore(r,s)})
+        (window,document,'https://s3.eu-central-1.amazonaws.com/portal-cdn-production/people-events-sdk/pe.latest-2.js','pe');
+        
+        pe.init('a939ec76f7477fc2e2d73468b473bab5-63e6c8b3-77d0-4996-b121-302544c4e5dc');
+        </script>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Welcome! 🎉</h2>
+        <p>Please enter your details below</p>
+        <form id="frm1">
+            <label for="name">name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+
+            <label for="birthdate">birthdate</label>
+            <input type="date" id="birthdate" name="birthdate" required>
+
+            <button type="submit" class="submit-btn">Login 🚀</button>
+        </form>
+    </div>
+    <script>
+        const onLoginFormSubmit = async (evt) => {
+        evt.preventDefault(); // يمنع إعادة تحميل الصفحة
+    
+         const formData = new FormData(event.target);
+         const formName = formData.get('name');
+         const formBirthdate = formData.get('birthdate');
+          console.log( "My Name is : " + formName );
+          console.log( "My Birthdate is : " + formBirthdate );
+          await pe.setPerson({ username : formName }); // profile identifier from the login form
+          await pe.setPerson({ birthdate : formBirthdate }); // profile identifier from the login form
+        await pe.track('login'); // your custom event
+        };
+        const loginForm = document.querySelector('form');
+        loginForm.addEventListener('submit', onLoginFormSubmit);
+            </script>
+</body>
+</html>
